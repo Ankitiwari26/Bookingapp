@@ -1,36 +1,28 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .container {
-    text-align: center;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    color: #333;
-  }
-  
-  .details-container {
-    margin-top: 20px;
-  }
-  
-  label {
-    font-weight: bold;
-    margin-right: 8px;
-  }
-  
-  span {
-    font-weight: normal;
-  }
-  
+/* Add styles as needed */
+
+.container {
+  /* Existing styles */
+}
+
+.details-container {
+  /* Existing styles */
+}
+
+.user-detail {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.user-detail span {
+  margin-right: 10px;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
