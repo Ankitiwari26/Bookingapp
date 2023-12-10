@@ -1,54 +1,58 @@
-const getMovieTicket = async (customerName, movieName, showTiming) => {
-    console.log(`${customerName} is in the movie ticket queue for "${movieName}" at ${showTiming}`);
-    console.log('Waiting for my wife to bring the ticket...');
-    
-    // Simulate waiting for the wife to bring the ticket
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    console.log(`Got the movie ticket for "${movieName}" at ${showTiming}!`);
-  };
-  
-  const getPopcorn = async () => {
-    console.log('Buying popcorn after getting the entry in the movie theater');
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log('Got popcorn!');
-  };
-  
-  const getButter = async () => {
-    console.log('Got butter for popcorn!');
-    await new Promise(resolve => setTimeout(resolve, 1500));
-  };
-  
-  const getColdDrinks = async () => {
-    console.log('Getting cold drinks after getting butter');
-    await getButter();
-    await new Promise(resolve => setTimeout(resolve, 1200));
-    console.log('Got cold drinks!');
-  };
-  
-  const watchMovieAsync = async () => {
-    // Retrieve user details from localStorage
-    const storedCustomerName = localStorage.getItem('customerName') || 'John Doe';
-    const storedMovieName = localStorage.getItem('movieName') || 'Inception';
-    const storedShowTiming = localStorage.getItem('showTiming') || '8:00 PM';
-  
-    // Display the stored user details in the HTML
-    document.getElementById('customerName').innerText = storedCustomerName;
-    document.getElementById('movieName').innerText = storedMovieName;
-    document.getElementById('showTiming').innerText = storedShowTiming;
-  
-    try {
-      await getMovieTicket(storedCustomerName, storedMovieName, storedShowTiming);
-      await getPopcorn();
-      await getColdDrinks();
-      console.log(`Ready to enjoy "${storedMovieName}" at ${storedShowTiming}!`);
-    } catch (error) {
-      console.error('Error:', error);
+// Function to delete a user detail by _id
+const deleteUserDetail = async (userId) => {
+  try {
+    // Perform DELETE operation using fetch or any other preferred method
+    // Replace the URL with your CRUD CRUD endpoint
+    const response = await fetch(`https://your-crud-crud-endpoint/${userId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers as needed
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete user detail');
     }
-  };
-  
+
+    // Remove the user detail from the HTML
+    const userDetailElement = document.querySelector(`.user-detail[data-user-id="${userId}"]`);
+    if (userDetailElement) {
+      userDetailElement.remove();
+    } else {
+      console.warn('User detail element not found in HTML');
+    }
+
+    console.log('User detail deleted successfully');
+  } catch (error) {
+    console.error('Error deleting user detail:', error);
+  }
+};
+
+// Function to set up event listeners
+const setupEventListeners = () => {
+  // Get all delete buttons and attach click event listener
+  const deleteButtons = document.querySelectorAll('.delete-btn');
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Get the user ID from the parent user detail element
+      const userId = button.parentElement.getAttribute('data-user-id');
+      
+      // Call the delete function with the user ID
+      deleteUserDetail(userId);
+    });
+  });
+};
+
+const watchMovieAsync = async () => {
+  // Display user details and set up event listeners
+  // ... (existing code)
+
+  // Call setupEventListeners after displaying user details
+  setupEventListeners();
+
   console.log('Watching Movie using async/await:');
-  
-  // Call watchMovieAsync after the DOM has loaded
-  document.addEventListener('DOMContentLoaded', watchMovieAsync);
-  
+};
+
+// Call watchMovieAsync after the DOM has loaded
+document.addEventListener('DOMContentLoaded', watchMovieAsync);
